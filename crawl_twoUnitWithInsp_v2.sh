@@ -12,17 +12,20 @@
 # $7 = index of dynamic parameter
 # $8 = increase parameter by
 # $9 = number of increases
+# $10 = output file name
+
 i="0"
-echo `date` >> ./results
-echo 'mlt:' $1 >> ./results
-echo 'mrt:' $2 >> ./results
-echo 'd:' $3 >> ./results
-echo 'Delta:' $4 >> ./results
-echo 'T:' $5 >> ./results
-echo 'seed:' $6 >> ./results
-echo 'dynamic parameter $' $7 >> ./results
-echo 'incr by:' $8 >> ./results
-echo 'incr rnd:' $9 >> ./results
+echo `date` >> ./testResults/${10}.csv
+echo 'mlt:' $1 >> ./testResults/${10}.csv
+echo 'mrt:' $2 >> ./testResults/${10}.csv
+echo 'd:' $3 >> ./testResults/${10}.csv
+echo 'Delta:' $4 >> ./testResults/${10}.csv
+echo 'T:' $5 >> ./testResults/${10}.csv
+echo 'seed:' $6 >> ./testResults/${10}.csv
+echo 'dynamic parameter $' $7 >> ./testResults/${10}.csv
+echo 'incr by:' $8 >> ./testResults/${10}.csv
+echo 'incr rnd:' $9 >> ./testResults/${10}.csv
+
 initial=${!7}
 plus=$(($8*$9))
 target=$(( $initial + $plus ))
@@ -50,7 +53,7 @@ esac
 check=${!var}
 while [ $check -lt $target ]
 	do
-		./twoUnitWithInsp_v2 $mlt $mrt $d $delta $t $seed | sed -n -e 's/^.*= //p' >> ./results
-		check=$(( $check + $8 ))
+        echo $check`./twoUnitWithInsp_v2 $mlt $mrt $d $delta $t $seed | sed -n -e 's/^.*= /;/p' | sed '/[0-9]\./s/\./,/g'` >> ./testResults/${10}.csv
+        check=$(( $check + $8 ))
 		let $var=$check
 	done

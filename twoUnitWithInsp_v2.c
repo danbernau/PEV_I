@@ -1,4 +1,4 @@
-// --- G. Rubino, Feb 2014
+// --- D. Bernau, Feb 2014
 //      status:  working
 //      quick and dirty (and no confidence intervals)
 
@@ -228,6 +228,7 @@ int main(int nbOfPars, char **pars)
       };
       tPrec = time;
    } while(class != END_SIM);
-   printf("\n --- asymptotic unavailability = %lf\n\n",totalDown1/T);
+   printf("\n --- asymptotic unavailability of system = %lf\n\n",totalDown2/T);
+   printf("\n --- asymptotic unavailability of individual components (total) = %lf\n\n",((totalDown1+totalDown2)/T));
 }
 
